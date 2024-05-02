@@ -1,0 +1,27 @@
+.logo {
+  padding: 1rem;
+}
+
+.menu {
+  position: absolute;
+  margin-left: 9.8rem;
+  margin-top: -2rem;
+  display: none;
+}
+
+nav li {
+  width: 10rem;
+}
+
+nav li a {
+  padding-inline-start: 1rem;
+  line-height: 2rem;
+}
+
+nav li:hover {
+  background: #bbb;
+}
+
+li:hover > .menu {
+  display: block;
+}
