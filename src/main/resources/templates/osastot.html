@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>Osastot</title>
+  </head>
+  <body>
+    <h1>Osastot</h1>
+
+    <h2>Lisää uusi osasto</h2>
+    <form th:action="@{/osastot}" method="POST">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" /><br />
+      <label for="osastoID">Osasto ID: </label>
+      <input type="text" name="osastoID" id="osastoID" /><br />
+      <input type="submit" value="Lisää" />
+    </form>
+
+    <h2>Nykyiset osastot</h2>
+    <ol>
+      <li th:each="osasto : ${osastot}">
+        <a th:href="@{/osasto/{id}(id=${osasto.id})}">
+          <span th:text="${osasto.id}">osaston id</span>
+          <span th:text="${osasto.nimi}">osaston nimi</span>
+          <span th:text="${osasto.osastoID}">osaston osastoID</span>
+        </a>
+      </li>
+    </ol>
+  </body>
+</html>
