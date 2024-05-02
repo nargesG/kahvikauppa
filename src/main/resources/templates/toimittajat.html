@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>Toimittajat</title>
+  </head>
+  <body>
+    <h1>Toimittajat</h1>
+
+    <h2>Lisää uusi toimittaja</h2>
+    <form th:action="@{/toimittajat}" method="POST">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" /><br />
+      <label for="yhteyshenkilo">Yhteyshenkilo: </label>
+      <input type="text" name="yhteyshenkilo" id="yhteyshenkilo" /><br />
+      <label for="yhteyshenkillonEmail">Yhteyshenkillon Email: </label>
+      <input
+        type="text"
+        name="yhteyshenkillonEmail"
+        id="yhteyshenkillonEmail" /><br />
+      <input type="submit" value="Lisää" />
+    </form>
+
+    <h2>Nykyiset toimittajat</h2>
+    <ol>
+      <li th:each="toimittaja : ${toimittajat}">
+        <a th:href="@{/toimittaja/{id}(id=${toimittaja.id})}">
+          <span th:text="${toimittaja.id}">toimittajan id</span>
+          <span th:text="${toimittaja.nimi}">toimittajan nimi</span>
+          <span th:text="${toimittaja.yhteyshenkilo}"
+            >toimittajan yhteyshenkilo</span
+          >
+          <span th:text="${toimittaja.yhteyshenkillonEmail}"
+            >toimittajan yhteyshenkillon email</span
+          >
+        </a>
+      </li>
+    </ol>
+  </body>
+</html>

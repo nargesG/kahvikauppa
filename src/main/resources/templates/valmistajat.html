@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>Valmistajat</title>
+  </head>
+  <body>
+    <h1>Valmistajat</h1>
+
+    <h2>Lisää uusi valmistaja</h2>
+    <form th:action="@{/valmistajat}" method="POST">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" /><br />
+      <label for="url">URL: </label>
+      <input type="text" name="url" id="url" /><br />
+      <input type="submit" value="Lisää" />
+    </form>
+
+    <h2>Nykyiset valmistajat</h2>
+    <ol>
+      <li th:each="valmistaja : ${valmistajat}">
+        <a th:href="@{/valmistaja/{id}(id=${valmistaja.id})}">
+          <span th:text="${valmistaja.id}">valmistajan id</span>
+          <span th:text="${valmistaja.nimi}">valmistajan nimi</span>
+          <span th:text="${valmistaja.url}">valmistajan url</span>
+        </a>
+      </li>
+    </ol>
+  </body>
+</html>
