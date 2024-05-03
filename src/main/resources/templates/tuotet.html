@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>Tuotet</title>
+  </head>
+  <body>
+    <h1>Tuotet</h1>
+
+    <h2>Lisää uusi tuote</h2>
+    <form th:action="@{/osastot}" method="POST">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" /><br />
+      <label for="kuvaus">Kuvaus: </label>
+      <input type="text" name="kuvaus" id="kuvaus" /><br />
+      <label for="hinta">Hinta: </label>
+      <input type="text" name="hinta" id="hinta" /><br />
+      <label for="tuoteKuva">Tuote Kuva: </label>
+      <input type="text" name="tuoteKuva" id="tuoteKuva" /><br />
+      <input type="submit" value="Lisää" />
+    </form>
+
+    <h2>Nykyiset osastot</h2>
+    <ol>
+      <li th:each="tuote : ${tuotet}">
+        <a th:href="@{/tuote/{id}(id=${tuote.id})}">
+          <span th:text="${tuote.id}">tuoten id</span>
+          <span th:text="${tuote.nimi}">tuoten nimi</span>
+          <span th:text="${tuote.kuvaus}">tuoten kuvaus</span>
+          <span th:text="${tuote.hinta}">tuoten hinta</span>
+          <span th:text="${tuote.tuoteKuva}">tuoten tuoteKuva</span>
+        </a>
+      </li>
+    </ol>
+  </body>
+</html>
