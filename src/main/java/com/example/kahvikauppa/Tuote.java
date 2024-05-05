@@ -1,23 +1,26 @@
 package com.example.kahvikauppa;
 
 import java.math.BigDecimal;
-import java.sql.Blob;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
-@Data 
+@Data
 
 public class Tuote {
+
   @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
   private String nimi;
   private String kuvaus;
+  private String kuva;
   private BigDecimal hinta;
-  private Blob tuotekuva;
 
   @ManyToOne
   private Osasto osasto;
@@ -27,5 +30,5 @@ public class Tuote {
 
   @ManyToOne
   private Valmistaja valmistaja;
-  
+
 }

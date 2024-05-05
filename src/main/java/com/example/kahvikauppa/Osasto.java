@@ -16,7 +16,7 @@ import lombok.Data;
 public class Osasto {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   private Long id;
   private String nimi;
   private Long osastoID;

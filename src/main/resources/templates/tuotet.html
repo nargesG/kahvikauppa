@@ -16,15 +16,41 @@
     <h1>Tuotet</h1>
 
     <h2>Lisää uusi tuote</h2>
-    <form th:action="@{/osastot}" method="POST">
+    <form th:action="@{/tuotet}" method="POST" enctype="multipart/form-data">
       <label for="nimi">Nimi: </label>
       <input type="text" name="nimi" id="nimi" /><br />
       <label for="kuvaus">Kuvaus: </label>
       <input type="text" name="kuvaus" id="kuvaus" /><br />
       <label for="hinta">Hinta: </label>
       <input type="text" name="hinta" id="hinta" /><br />
-      <label for="tuoteKuva">Tuote Kuva: </label>
-      <input type="text" name="tuoteKuva" id="tuoteKuva" /><br />
+      <label for="tuotekuva">Tuotekuva: </label>
+      <input type="file" name="tuotekuva" id="tuotekuva" accept="image/*" />
+      <br />
+
+      <label for="id">Valmistaja: </label>
+      <select id="valmistajaID" name="valmistajaID">
+        <option
+          th:each="valmistaja : ${valmistajat}"
+          th:value="${valmistaja.id}"
+          th:text="${valmistaja.nimi}"></option></select
+      ><br />
+
+      <label for="id">Toimittaja: </label>
+      <select id="toimittajaID" name="toimittajaID">
+        <option
+          th:each="toimittaja : ${toimittajat}"
+          th:value="${toimittaja.id}"
+          th:text="${toimittaja.nimi}"></option></select
+      ><br />
+
+      <label for="id">Osaston nimi: </label>
+      <select id="osastoID" name="osastoID">
+        <option
+          th:each="osasto : ${osastot}"
+          th:value="${osasto.id}"
+          th:text="${osasto.nimi}"></option></select
+      ><br />
+
       <input type="submit" value="Lisää" />
     </form>
 
@@ -36,7 +62,11 @@
           <span th:text="${tuote.nimi}">tuoten nimi</span>
           <span th:text="${tuote.kuvaus}">tuoten kuvaus</span>
           <span th:text="${tuote.hinta}">tuoten hinta</span>
-          <span th:text="${tuote.tuoteKuva}">tuoten tuoteKuva</span>
+          <img
+            th:src="@{/images/{filename}(filename=${tuote.kuva})}"
+            alt="tuoten kuva"
+            width="16px"
+            height="16px" />
         </a>
       </li>
     </ol>

@@ -14,20 +14,20 @@ public class OsastoController {
   private OsastoRepository osastoRepository;
 
   @GetMapping("/osastot")
-    public String list(Model model) {
-        model.addAttribute("osastot", osastoRepository.findAll());
+  public String list(Model model) {
+    model.addAttribute("osastot", osastoRepository.findAll());
 
-        return "osastot";
-    }
+    return "osastot";
+  }
 
   @PostMapping("/osastot")
-    public String create(@RequestParam String nimi, @RequestParam Long osastoID) {
-        Osasto osasto = new Osasto();
-        osasto.setNimi(nimi);
-        osasto.setOsastoID(osastoID);
+  public String create(@RequestParam String nimi, @RequestParam Long osastoID) {
+    Osasto osasto = new Osasto();
+    osasto.setNimi(nimi);
+    osasto.setOsastoID(osastoID);
 
-        osastoRepository.save(osasto);
-        return "redirect:/osastot";
-    }
-  
+    osastoRepository.save(osasto);
+    return "redirect:/osastot";
+  }
+
 }
