@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <title>Admin</title>
+  </head>
+
+  <body>
+    <h1>Admin Page</h1>
+
+    <ul class="admin-header" th:fragment="header">
+      <li><a href="tuotteet">Tuotteet</a></li>
+      <li><a href="valmistajat">Valmistajat</a></li>
+      <li><a href="toimittajat">Toimittajat</a></li>
+      <li><a href="osastot">Osastot</a></li>
+      <li><a href="vipasiakas">Vip Asiakas</a></li>
+    </ul>
+  </body>
+</html>

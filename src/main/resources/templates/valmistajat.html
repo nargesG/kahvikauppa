@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
         display: inline-block;
@@ -14,6 +15,7 @@
   </head>
   <body>
     <h1>Valmistajat</h1>
+    <div th:replace="fragments/admin-header :: header">admin header</div>
 
     <h2>Lisää uusi valmistaja</h2>
     <form th:action="@{/valmistajat}" method="POST">

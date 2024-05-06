@@ -15,7 +15,6 @@ import lombok.Data;
 
 public class Toimittaja {
 
-
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
@@ -24,6 +23,6 @@ public class Toimittaja {
   private String yhteyshenkillonEmail;
 
   @OneToMany(mappedBy = "toimittaja")
-  private List<Tuote> tuotet = new ArrayList<>();
-  
+  private List<Tuote> tuotteet = new ArrayList<>();
+
 }

@@ -22,6 +22,6 @@ public class Osasto {
   private Long osastoID;
 
   @OneToMany(mappedBy = "osasto")
-  private List<Tuote> tuotet = new ArrayList<>();
-  
+  private List<Tuote> tuotteet = new ArrayList<>();
+
 }

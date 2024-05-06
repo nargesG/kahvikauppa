@@ -1,0 +1,10 @@
+.admin-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  background-color: #ccc;
+}
+
+.admin-header li {
+  padding: 1rem;
+}

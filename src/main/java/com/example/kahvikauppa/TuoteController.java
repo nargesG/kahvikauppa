@@ -33,17 +33,17 @@ public class TuoteController {
   @Autowired
   private OsastoRepository osastoRepository;
 
-  @GetMapping("/tuotet")
+  @GetMapping("/tuotteet")
   public String list(Model model) {
-    model.addAttribute("tuotet", tuoteRepository.findAll());
+    model.addAttribute("tuotteet", tuoteRepository.findAll());
     model.addAttribute("valmistajat", valmistajaRepository.findAll());
     model.addAttribute("toimittajat", toimittajaRepository.findAll());
     model.addAttribute("osastot", osastoRepository.findAll());
 
-    return "tuotet";
+    return "tuotteet";
   }
 
-  @PostMapping("/tuotet")
+  @PostMapping("/tuotteet")
   public String create(
       @RequestParam String nimi,
       @RequestParam String kuvaus,
@@ -76,7 +76,7 @@ public class TuoteController {
     tuote.setKuva(tuotekuva.getOriginalFilename());
     tuoteRepository.save(tuote);
 
-    return "redirect:/tuotet";
+    return "redirect:/tuotteet";
   }
 
 }

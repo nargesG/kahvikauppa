@@ -22,6 +22,6 @@ public class Valmistaja {
   private String url;
 
   @OneToMany(mappedBy = "valmistaja")
-  private List<Tuote> tuotet = new ArrayList<>();
-  
+  private List<Tuote> tuotteet = new ArrayList<>();
+
 }
