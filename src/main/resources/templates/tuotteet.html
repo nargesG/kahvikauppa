@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
-    <style>
-      span {
-        display: inline-block;
-        width: 8rem;
-      }
-    </style>
 
     <title>Tuotteet</title>
   </head>
@@ -32,7 +26,6 @@
       </thead>
       <tbody>
         <tr th:each="tuote : ${tuotteet}">
-          <!-- <a th:href="@{/tuote/{id}(id=${tuote.id})}"> -->
           <td th:text="${tuote.nimi}">tuoten nimi</td>
           <td th:text="${tuote.hinta}">tuoten hinta</td>
           <td th:text="${tuote.osasto.nimi}">tuoten osasto</td>
@@ -44,16 +37,10 @@
             </a>
           </td>
           <td>
-            <button>Poista</button>
+            <a th:href="@{/poista-tuote/{id}(id=${tuote.id})}">
+              <button>Poista</button>
+            </a>
           </td>
-          <!-- <td>
-            <img
-              th:src="@{/images/{filename}(filename=${tuote.kuva})}"
-              alt="tuoten kuva"
-              width="16px"
-              height="16px" />
-          </td> -->
-          <!-- </a> -->
         </tr>
       </tbody>
     </table>

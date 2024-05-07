@@ -104,9 +104,6 @@ public class TuoteController {
       @RequestParam Toimittaja toimittajaID,
       @RequestParam("tuotekuva") MultipartFile tuotekuva) throws IOException {
     Tuote tuote = tuoteRepository.getReferenceById(id);
-    System.out.println(id);
-    System.out.println(nimi);
-
     tuote.setNimi(nimi);
     tuote.setKuvaus(kuvaus);
     tuote.setHinta(hinta);
@@ -130,8 +127,22 @@ public class TuoteController {
     }
 
     tuoteRepository.save(tuote);
-
     return "redirect:/tuote/" + id;
+  }
 
+  @GetMapping("/poista-tuote/{id}")
+  public String poistaVahvistus(@PathVariable("id") Long id, Model model) {
+    Tuote tuote = tuoteRepository.getReferenceById(id);
+    model.addAttribute("tuote", tuote);
+
+    return "poista-tuote";
+  }
+
+  @PostMapping("/poista-tuote/{id}")
+  public String delete(@PathVariable("id") Long id) throws IOException {
+    Tuote tuote = tuoteRepository.getReferenceById(id);
+    tuoteRepository.delete(tuote);
+
+    return "redirect:/tuotteet";
   }
 }

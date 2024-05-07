@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+
+    <title>Poista Tuote</title>
+  </head>
+  <body>
+    <a href="/tuotteet">Takaisin tuotelistaan</a>
+
+    <h1>Poista Tuote</h1>
+    <form
+      th:action="@{/poista-tuote/{id}(id=${tuote.id})}"
+      method="POST"
+      enctype="multipart/form-data">
+      <span th:text="${tuote.nimi}">tuote nimi</span> poistettaisiin. Oletko
+      varma?
+      <a href="/tuotteet"><button>Peru</button></a>
+      <button type="submit">Poista</button>
+    </form>
+  </body>
+</html>
