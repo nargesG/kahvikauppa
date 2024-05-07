@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>TuotenMuokkaa</title>
+  </head>
+  <body>
+    <a href="/tuotteet">Takaisin tuotelistaan</a>
+
+    <h1>TuotenMuokkaa</h1>
+    <form
+      th:action="@{/tuote/{id}(id=${tuote.id})}"
+      method="POST"
+      enctype="multipart/form-data">
+      <label for="tuotekuva">
+        <img
+          th:src="@{/images/{filename}(filename=${tuote.kuva})}"
+          id="preview"
+          alt="tuoten kuva"
+          width="100px"
+          height="100px" />
+      </label>
+      <input
+        id="tuotekuva"
+        type="file"
+        name="tuotekuva"
+        accept="image/*"
+        style="visibility: hidden"
+        onchange="PreviewImage();" />
+      <script type="text/javascript">
+        function PreviewImage() {
+          var oFReader = new FileReader();
+          oFReader.readAsDataURL(document.getElementById("tuotekuva").files[0]);
+
+          oFReader.onload = function (oFREvent) {
+            document.getElementById("preview").src = oFREvent.target.result;
+          };
+        }
+      </script>
+
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" th:value="${tuote.nimi}" />
+      <label for="kuvaus">Kuvaus: </label>
+      <textarea id="kuvaus" name="kuvaus" th:text="${tuote.kuvaus}"></textarea>
+      <label for="hinta">Hinta: </label>
+      <input type="text" name="hinta" id="hinta" th:value="${tuote.hinta}" />
+
+      <label for="id">Valmistaja: </label>
+      <select
+        id="valmistajaID"
+        name="valmistajaID"
+        th:field="${tuote.valmistaja.id}">
+        <option
+          th:each="valmistaja : ${valmistajat}"
+          th:value="${valmistaja.id}"
+          th:text="${valmistaja.nimi}"></option>
+      </select>
+
+      <label for="id">Toimittaja: </label>
+      <select
+        id="toimittajaID"
+        name="toimittajaID"
+        th:field="${tuote.toimittaja.id}">
+        <option
+          th:each="toimittaja : ${toimittajat}"
+          th:value="${toimittaja.id}"
+          th:text="${toimittaja.nimi}"></option>
+      </select>
+
+      <label for="id">Osaston nimi: </label>
+      <select id="osastoID" name="osastoID" th:field="${tuote.osasto.id}">
+        <option
+          th:each="osasto : ${osastot}"
+          th:value="${osasto.id}"
+          th:text="${osasto.nimi}"></option>
+      </select>
+
+      <button type="submit">Tallenna muutokset</button>
+    </form>
+  </body>
+</html>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -79,4 +80,15 @@ public class TuoteController {
     return "redirect:/tuotteet";
   }
 
+  @GetMapping("/tuote/{id}")
+  public String tuote(@PathVariable("id") Long id, Model model) {
+    model.addAttribute("valmistajat", valmistajaRepository.findAll());
+    model.addAttribute("toimittajat", toimittajaRepository.findAll());
+    model.addAttribute("osastot", osastoRepository.findAll());
+
+    Tuote tuote = tuoteRepository.findById(id).orElse(null);
+    model.addAttribute("tuote", tuote);
+
+    return "tuote";
+  }
 }

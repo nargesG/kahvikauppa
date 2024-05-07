@@ -20,47 +20,45 @@
     <h2>Lisää uusi tuote</h2>
     <form th:action="@{/tuotteet}" method="POST" enctype="multipart/form-data">
       <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" /><br />
+      <input type="text" name="nimi" id="nimi" />
       <label for="kuvaus">Kuvaus: </label>
-      <input type="text" name="kuvaus" id="kuvaus" /><br />
+      <input type="text" name="kuvaus" id="kuvaus" />
       <label for="hinta">Hinta: </label>
-      <input type="text" name="hinta" id="hinta" /><br />
+      <input type="text" name="hinta" id="hinta" />
       <label for="tuotekuva">Tuotekuva: </label>
       <input type="file" name="tuotekuva" id="tuotekuva" accept="image/*" />
-      <br />
 
       <label for="id">Valmistaja: </label>
       <select id="valmistajaID" name="valmistajaID">
         <option
           th:each="valmistaja : ${valmistajat}"
           th:value="${valmistaja.id}"
-          th:text="${valmistaja.nimi}"></option></select
-      ><br />
+          th:text="${valmistaja.nimi}"></option>
+      </select>
 
       <label for="id">Toimittaja: </label>
       <select id="toimittajaID" name="toimittajaID">
         <option
           th:each="toimittaja : ${toimittajat}"
           th:value="${toimittaja.id}"
-          th:text="${toimittaja.nimi}"></option></select
-      ><br />
+          th:text="${toimittaja.nimi}"></option>
+      </select>
 
       <label for="id">Osaston nimi: </label>
       <select id="osastoID" name="osastoID">
         <option
           th:each="osasto : ${osastot}"
           th:value="${osasto.id}"
-          th:text="${osasto.nimi}"></option></select
-      ><br />
+          th:text="${osasto.nimi}"></option>
+      </select>
 
-      <input type="submit" value="Lisää" />
+      <button type="submit">Lisää</button>
     </form>
 
     <h2>Nykyiset osastot</h2>
     <ol>
       <li th:each="tuote : ${tuotteet}">
         <a th:href="@{/tuote/{id}(id=${tuote.id})}">
-          <span th:text="${tuote.id}">tuoten id</span>
           <span th:text="${tuote.nimi}">tuoten nimi</span>
           <span th:text="${tuote.kuvaus}">tuoten kuvaus</span>
           <span th:text="${tuote.hinta}">tuoten hinta</span>
