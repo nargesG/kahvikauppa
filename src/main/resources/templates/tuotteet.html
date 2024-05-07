@@ -17,6 +17,47 @@
     <h1>Tuotteet</h1>
     <div th:replace="fragments/admin-header :: header">admin header</div>
 
+    <h2>Nykyiset osastot</h2>
+    <table cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th scope="col">Tuoten nimi</th>
+          <th scope="col">Hinta</th>
+          <th scope="col">Osasto</th>
+          <th scope="col">Valmistaja</th>
+          <th scope="col">Toimittaja</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="tuote : ${tuotteet}">
+          <!-- <a th:href="@{/tuote/{id}(id=${tuote.id})}"> -->
+          <td th:text="${tuote.nimi}">tuoten nimi</td>
+          <td th:text="${tuote.hinta}">tuoten hinta</td>
+          <td th:text="${tuote.osasto.nimi}">tuoten osasto</td>
+          <td th:text="${tuote.valmistaja.nimi}">tuoten valmistaja</td>
+          <td th:text="${tuote.toimittaja.nimi}">tuoten toimittaja</td>
+          <td>
+            <a th:href="@{/tuote/{id}(id=${tuote.id})}">
+              <button>Muokka</button>
+            </a>
+          </td>
+          <td>
+            <button>Poista</button>
+          </td>
+          <!-- <td>
+            <img
+              th:src="@{/images/{filename}(filename=${tuote.kuva})}"
+              alt="tuoten kuva"
+              width="16px"
+              height="16px" />
+          </td> -->
+          <!-- </a> -->
+        </tr>
+      </tbody>
+    </table>
+
     <h2>Lisää uusi tuote</h2>
     <form th:action="@{/tuotteet}" method="POST" enctype="multipart/form-data">
       <label for="nimi">Nimi: </label>
@@ -54,21 +95,5 @@
 
       <button type="submit">Lisää</button>
     </form>
-
-    <h2>Nykyiset osastot</h2>
-    <ol>
-      <li th:each="tuote : ${tuotteet}">
-        <a th:href="@{/tuote/{id}(id=${tuote.id})}">
-          <span th:text="${tuote.nimi}">tuoten nimi</span>
-          <span th:text="${tuote.kuvaus}">tuoten kuvaus</span>
-          <span th:text="${tuote.hinta}">tuoten hinta</span>
-          <img
-            th:src="@{/images/{filename}(filename=${tuote.kuva})}"
-            alt="tuoten kuva"
-            width="16px"
-            height="16px" />
-        </a>
-      </li>
-    </ol>
   </body>
 </html>

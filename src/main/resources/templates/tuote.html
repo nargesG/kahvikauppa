@@ -55,33 +55,30 @@
       <input type="text" name="hinta" id="hinta" th:value="${tuote.hinta}" />
 
       <label for="id">Valmistaja: </label>
-      <select
-        id="valmistajaID"
-        name="valmistajaID"
-        th:field="${tuote.valmistaja.id}">
+      <select id="valmistajaID" name="valmistajaID">
         <option
           th:each="valmistaja : ${valmistajat}"
           th:value="${valmistaja.id}"
-          th:text="${valmistaja.nimi}"></option>
+          th:text="${valmistaja.nimi}"
+          th:selected="${valmistaja.id==tuote.valmistaja.id}"></option>
       </select>
 
       <label for="id">Toimittaja: </label>
-      <select
-        id="toimittajaID"
-        name="toimittajaID"
-        th:field="${tuote.toimittaja.id}">
+      <select id="toimittajaID" name="toimittajaID">
         <option
           th:each="toimittaja : ${toimittajat}"
           th:value="${toimittaja.id}"
-          th:text="${toimittaja.nimi}"></option>
+          th:text="${toimittaja.nimi}"
+          th:selected="${toimittaja.id==tuote.toimittaja.id}"></option>
       </select>
 
       <label for="id">Osaston nimi: </label>
-      <select id="osastoID" name="osastoID" th:field="${tuote.osasto.id}">
+      <select id="osastoID" name="osastoID">
         <option
           th:each="osasto : ${osastot}"
           th:value="${osasto.id}"
-          th:text="${osasto.nimi}"></option>
+          th:text="${osasto.nimi}"
+          th:selected="${osasto.id==tuote.osasto.id}"></option>
       </select>
 
       <button type="submit">Tallenna muutokset</button>

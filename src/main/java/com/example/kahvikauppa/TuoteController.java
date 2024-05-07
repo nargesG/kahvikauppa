@@ -63,18 +63,19 @@ public class TuoteController {
 
     // https://www.codejava.net/frameworks/spring-boot/spring-boot-file-upload-tutorial
     String fileName = StringUtils.cleanPath(tuotekuva.getOriginalFilename());
-    Path uploadPath = Paths.get("images");
-    if (!Files.exists(uploadPath)) {
-      Files.createDirectories(uploadPath);
+    if (fileName != null) {
+      Path uploadPath = Paths.get("images");
+      if (!Files.exists(uploadPath)) {
+        Files.createDirectories(uploadPath);
+      }
+      try (InputStream inputStream = tuotekuva.getInputStream()) {
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        tuote.setKuva(tuotekuva.getOriginalFilename());
+      } catch (IOException ioe) {
+        throw new IOException("Could not save image file: " + fileName, ioe);
+      }
     }
-    try (InputStream inputStream = tuotekuva.getInputStream()) {
-      Path filePath = uploadPath.resolve(fileName);
-      Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-    } catch (IOException ioe) {
-      throw new IOException("Could not save image file: " + fileName, ioe);
-    }
-
-    tuote.setKuva(tuotekuva.getOriginalFilename());
     tuoteRepository.save(tuote);
 
     return "redirect:/tuotteet";
@@ -86,9 +87,51 @@ public class TuoteController {
     model.addAttribute("toimittajat", toimittajaRepository.findAll());
     model.addAttribute("osastot", osastoRepository.findAll());
 
-    Tuote tuote = tuoteRepository.findById(id).orElse(null);
+    Tuote tuote = tuoteRepository.getReferenceById(id);
     model.addAttribute("tuote", tuote);
 
     return "tuote";
+  }
+
+  @PostMapping("/tuote/{id}")
+  public String update(
+      @PathVariable("id") Long id,
+      @RequestParam String nimi,
+      @RequestParam String kuvaus,
+      @RequestParam BigDecimal hinta,
+      @RequestParam Osasto osastoID,
+      @RequestParam Valmistaja valmistajaID,
+      @RequestParam Toimittaja toimittajaID,
+      @RequestParam("tuotekuva") MultipartFile tuotekuva) throws IOException {
+    Tuote tuote = tuoteRepository.getReferenceById(id);
+    System.out.println(id);
+    System.out.println(nimi);
+
+    tuote.setNimi(nimi);
+    tuote.setKuvaus(kuvaus);
+    tuote.setHinta(hinta);
+    tuote.setOsasto(osastoID);
+    tuote.setValmistaja(valmistajaID);
+    tuote.setToimittaja(toimittajaID);
+
+    String fileName = StringUtils.cleanPath(tuotekuva.getOriginalFilename());
+    if (fileName != null) {
+      Path uploadPath = Paths.get("images");
+      if (!Files.exists(uploadPath)) {
+        Files.createDirectories(uploadPath);
+      }
+      try (InputStream inputStream = tuotekuva.getInputStream()) {
+        Path filePath = uploadPath.resolve(fileName);
+        Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+        tuote.setKuva(tuotekuva.getOriginalFilename());
+      } catch (IOException ioe) {
+        throw new IOException("Could not save image file: " + fileName, ioe);
+      }
+    }
+
+    tuoteRepository.save(tuote);
+
+    return "redirect:/tuote/" + id;
+
   }
 }
