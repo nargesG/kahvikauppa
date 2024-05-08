@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <link rel="stylesheet" th:href="@{/styles/tuote.css}" />
+
+    <title th:text="${osasto} ? ${osasto.nimi} : 'Kaikki Tuotteet'">
+      Osasto Nimi
+    </title>
+  </head>
+  <body>
+    <h1 th:text="${osasto} ? ${osasto.nimi} : 'Kaikki Tuotteet'">
+      Osasto Nimi
+    </h1>
+
+    <section>
+      <div th:each="tuote : ${tuotteet}">
+        <img
+          th:src="@{/images/{filename}(filename=${tuote.kuva})}"
+          id="preview"
+          alt="tuoten kuva"
+          width="100px"
+          height="100px" />
+        <span th:text="${tuote.nimi}">tuoten nimi</span>
+        <span th:text="${tuote.hinta}">tuoten hinta</span>
+      </div>
+    </section>
+  </body>
+</html>

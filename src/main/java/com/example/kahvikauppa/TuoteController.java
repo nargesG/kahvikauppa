@@ -63,7 +63,7 @@ public class TuoteController {
 
     // https://www.codejava.net/frameworks/spring-boot/spring-boot-file-upload-tutorial
     String fileName = StringUtils.cleanPath(tuotekuva.getOriginalFilename());
-    if (fileName != null) {
+    if (fileName != null & fileName != "") {
       Path uploadPath = Paths.get("images");
       if (!Files.exists(uploadPath)) {
         Files.createDirectories(uploadPath);
@@ -112,7 +112,7 @@ public class TuoteController {
     tuote.setToimittaja(toimittajaID);
 
     String fileName = StringUtils.cleanPath(tuotekuva.getOriginalFilename());
-    if (fileName != null) {
+    if (fileName != null & fileName != "") {
       Path uploadPath = Paths.get("images");
       if (!Files.exists(uploadPath)) {
         Files.createDirectories(uploadPath);
