@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>ToimittajanMuokkaa</title>
+  </head>
+  <body>
+    <a href="/toimittajat">Takaisin toimittajanlistaan</a>
+
+    <h1>ToimittajanMuokkaa</h1>
+    <form
+      th:action="@{/toimittaja/{id}(id=${toimittaja.id})}"
+      method="POST"
+      enctype="multipart/form-data">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" th:value="${toimittaja.nimi}" />
+      <label for="yhteyshenkilo">Yhteyshenkilo: </label>
+      <input
+        type="text"
+        name="yhteyshenkilo"
+        id="yhteyshenkilo"
+        th:value="${toimittaja.yhteyshenkilo}" />
+      <label for="yhteyshenkillonEmail">YhteyshenkillonEmail: </label>
+      <input
+        type="text"
+        name="yhteyshenkillonEmail"
+        id="yhteyshenkillonEmail"
+        th:value="${toimittaja.yhteyshenkillonEmail}" />
+
+      <button type="submit">Tallenna muutokset</button>
+    </form>
+  </body>
+</html>
