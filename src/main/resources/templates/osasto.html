@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>OsastonMuokkaa</title>
+  </head>
+  <body>
+    <a href="/osastot">Takaisin osastonlistaan</a>
+
+    <h1>OsastonMuokkaa</h1>
+    <form
+      th:action="@{/osasto/{id}(id=${osasto.id})}"
+      method="POST"
+      enctype="multipart/form-data">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" th:value="${osasto.nimi}" />
+      <label for="osastoID">OsastoID: </label>
+      <input
+        type="text"
+        name="osastoID"
+        id="osastoID"
+        th:value="${osasto.osastoID}" />
+
+      <button type="submit">Tallenna muutokset</button>
+    </form>
+  </body>
+</html>
