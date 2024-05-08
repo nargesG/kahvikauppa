@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <style>
+      span {
+        display: inline-block;
+        width: 8rem;
+      }
+    </style>
+
+    <title>ValmistajanMuokkaa</title>
+  </head>
+  <body>
+    <a href="/valmistajat">Takaisin valmistajanlistaan</a>
+
+    <h1>ValmistajanMuokkaa</h1>
+    <form
+      th:action="@{/valmistaja/{id}(id=${valmistaja.id})}"
+      method="POST"
+      enctype="multipart/form-data">
+      <label for="nimi">Nimi: </label>
+      <input type="text" name="nimi" id="nimi" th:value="${valmistaja.nimi}" />
+      <label for="url">URL: </label>
+      <input type="text" name="url" id="url" th:value="${valmistaja.url}" />
+
+      <button type="submit">Tallenna muutokset</button>
+    </form>
+  </body>
+</html>

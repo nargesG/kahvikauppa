@@ -4,18 +4,40 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
-    <style>
-      span {
-        display: inline-block;
-        width: 8rem;
-      }
-    </style>
 
     <title>Valmistajat</title>
   </head>
   <body>
     <h1>Valmistajat</h1>
     <div th:replace="fragments/admin-header :: header">admin header</div>
+
+    <h2>Nykyiset valmistajat</h2>
+    <table cellspacing="0" cellpadding="0">
+      <thead>
+        <tr>
+          <th scope="col">Valmistajan nimi</th>
+          <th scope="col">URL</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="valmistaja : ${valmistajat}">
+          <td th:text="${valmistaja.nimi}">valmistajan nimi</td>
+          <td th:text="${valmistaja.url}">valmistajan url</td>
+          <td>
+            <a th:href="@{/valmistaja/{id}(id=${valmistaja.id})}">
+              <button>Muokka</button>
+            </a>
+          </td>
+          <td>
+            <a th:href="@{/poista-valmistaja/{id}(id=${valmistaja.id})}">
+              <button>Poista</button>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
     <h2>Lisää uusi valmistaja</h2>
     <form th:action="@{/valmistajat}" method="POST">
@@ -25,16 +47,5 @@
       <input type="text" name="url" id="url" /><br />
       <input type="submit" value="Lisää" />
     </form>
-
-    <h2>Nykyiset valmistajat</h2>
-    <ol>
-      <li th:each="valmistaja : ${valmistajat}">
-        <a th:href="@{/valmistaja/{id}(id=${valmistaja.id})}">
-          <span th:text="${valmistaja.id}">valmistajan id</span>
-          <span th:text="${valmistaja.nimi}">valmistajan nimi</span>
-          <span th:text="${valmistaja.url}">valmistajan url</span>
-        </a>
-      </li>
-    </ol>
   </body>
 </html>
