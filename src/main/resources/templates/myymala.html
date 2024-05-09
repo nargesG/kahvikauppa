@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
-    <link rel="stylesheet" th:href="@{/styles/admin.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/tuote.css}" />
 
     <title th:text="${osasto} ? ${osasto.nimi} : 'Kaikki Tuotteet'">
@@ -11,20 +11,29 @@
     </title>
   </head>
   <body>
-    <h1 th:text="${osasto} ? ${osasto.nimi} : 'Kaikki Tuotteet'">
+    <header th:replace="fragments/main-header :: header">main header</header>
+
+    <h2
+      class="osasto-nimi"
+      th:text="${osasto} ? ${osasto.nimi} : 'Kaikki Tuotteet'">
       Osasto Nimi
-    </h1>
+    </h2>
 
     <section>
-      <div th:each="tuote : ${tuotteet}">
-        <img
-          th:src="@{/images/{filename}(filename=${tuote.kuva})}"
-          id="preview"
-          alt="tuoten kuva"
-          width="100px"
-          height="100px" />
-        <span th:text="${tuote.nimi}">tuoten nimi</span>
-        <span th:text="${tuote.hinta}">tuoten hinta</span>
+      <div class="tuote-item" th:each="tuote : ${tuotteet}">
+        <div class="tuote-item-image">
+          <img
+            th:src="@{/images/{filename}(filename=${tuote.kuva})}"
+            id="preview"
+            alt="tuoten kuva"
+            width="120px"
+            height="120px" />
+        </div>
+        <p class="tuote-item-nimi" th:text="${tuote.nimi}">tuoten nimi</p>
+        <p class="tuote-item-kuvaus" th:text="${tuote.kuvaus}">tuoten kuvaus</p>
+        <p class="tuote-item-hinta" th:text="${tuote.hinta} + ' €'">
+          tuoten hinta
+        </p>
       </div>
     </section>
   </body>

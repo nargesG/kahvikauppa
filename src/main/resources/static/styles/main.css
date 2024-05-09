@@ -9,19 +9,29 @@
   display: none;
 }
 
-nav li {
-  width: 10rem;
+.main-header {
+  background: white;
+}
+
+nav {
+  background-color: #eee;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+}
+
+nav ul li {
+  border-bottom: 2px solid transparent;
+  transition: 300ms;
 }
 
 nav li a {
-  padding-inline-start: 1rem;
+  padding: 0 2rem;
   line-height: 2rem;
 }
 
 nav li:hover {
-  background: #bbb;
-}
-
-li:hover > .menu {
-  display: block;
+  border-bottom: 2px solid red;
 }

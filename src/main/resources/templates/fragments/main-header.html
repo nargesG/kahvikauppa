@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
+    <title>Kahvikauppa</title>
+  </head>
+
+  <body>
+    <header class="main-header" th:fragment="header">
+      <div class="logo">
+        <a href="/">
+          <h1>☕ Kahvikauppa</h1>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="/myymala/Kahvilaitteet">Kahvilaitteet</a>
+          </li>
+          <li>
+            <a href="/myymala/Kulutustuotteet">Kulutustuotteet</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </body>
+</html>
