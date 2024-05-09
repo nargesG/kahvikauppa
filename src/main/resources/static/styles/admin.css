@@ -1,12 +1,15 @@
 .admin-header {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: #ccc;
 }
 
 .admin-header li {
-  padding: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 table {
@@ -31,6 +34,10 @@ th {
 form {
   padding: 1rem;
   max-width: 380px;
+}
+
+.admin-header form {
+  padding: 0;
 }
 
 label {
@@ -64,6 +71,13 @@ button {
   background-color: #dfe8f6;
   border-radius: 5px;
   border: 1px #222 solid;
+}
+
+.logoutbtn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 td button {

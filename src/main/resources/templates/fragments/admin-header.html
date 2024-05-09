@@ -8,14 +8,16 @@
   </head>
 
   <body>
-    <h1>Admin Page</h1>
-
     <ul class="admin-header" th:fragment="header">
-      <li><a href="tuotteet">Tuotteet</a></li>
-      <li><a href="valmistajat">Valmistajat</a></li>
-      <li><a href="toimittajat">Toimittajat</a></li>
-      <li><a href="osastot">Osastot</a></li>
-      <li><a href="vipasiakas">Vip Asiakas</a></li>
+      <li><a href="/tuotteet">Tuotteet</a></li>
+      <li><a href="/valmistajat">Valmistajat</a></li>
+      <li><a href="/toimittajat">Toimittajat</a></li>
+      <li><a href="/osastot">Osastot</a></li>
+      <li>
+        <form th:action="@{/logout}" method="post">
+          <input class="logoutbtn" type="submit" value="Kirijoitta ulos" />
+        </form>
+      </li>
     </ul>
   </body>
 </html>
