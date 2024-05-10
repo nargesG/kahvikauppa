@@ -10,34 +10,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.kahvikauppa.services.ValmistajaService;
+
+import jakarta.transaction.Transactional;
+
 @Controller
 public class ValmistajaController {
 
   @Autowired
   private ValmistajaRepository valmistajaRepository;
 
+  @Autowired
+  private ValmistajaService valmistajaService;
+
   @GetMapping("/valmistajat")
   public String list(Model model) {
-    model.addAttribute("valmistajat", valmistajaRepository.findAll());
+    model.addAttribute("valmistajat", valmistajaService.list());
 
     return "valmistajat";
   }
 
+  @Transactional
   @PostMapping("/valmistajat")
   public String create(@RequestParam String nimi, @RequestParam String url) {
-    Valmistaja valmistaja = new Valmistaja();
-    valmistaja.setNimi(nimi);
-    valmistaja.setUrl(url);
+    valmistajaService.create(nimi, url);
 
-    valmistajaRepository.save(valmistaja);
     return "redirect:/valmistajat";
   }
 
   @GetMapping("/valmistaja/{id}")
   public String valmistaja(@PathVariable("id") Long id, Model model) {
-
-    Valmistaja valmistaja = valmistajaRepository.getReferenceById(id);
-    model.addAttribute("valmistaja", valmistaja);
+    model.addAttribute("valmistaja", valmistajaService.get(id));
 
     return "valmistaja";
   }
@@ -48,26 +51,21 @@ public class ValmistajaController {
       @RequestParam String nimi,
       @RequestParam String url)
       throws IOException {
-    Valmistaja valmistaja = valmistajaRepository.getReferenceById(id);
-    valmistaja.setNimi(nimi);
-    valmistaja.setUrl(url);
+    valmistajaService.update(id, nimi, url);
 
-    valmistajaRepository.save(valmistaja);
     return "redirect:/valmistaja/" + id;
   }
 
   @GetMapping("/poista-valmistaja/{id}")
   public String poistaVahvistus(@PathVariable("id") Long id, Model model) {
-    Valmistaja valmistaja = valmistajaRepository.getReferenceById(id);
-    model.addAttribute("valmistaja", valmistaja);
+    model.addAttribute("valmistaja", valmistajaService.get(id));
 
     return "poista-valmistaja";
   }
 
   @PostMapping("/poista-valmistaja/{id}")
   public String delete(@PathVariable("id") Long id) throws IOException {
-    Valmistaja valmistaja = valmistajaRepository.getReferenceById(id);
-    valmistajaRepository.delete(valmistaja);
+    valmistajaRepository.delete(valmistajaService.get(id));
 
     return "redirect:/valmistajat";
   }
