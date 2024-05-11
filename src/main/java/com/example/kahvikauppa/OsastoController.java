@@ -10,34 +10,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.kahvikauppa.services.OsastoService;
+
 @Controller
 public class OsastoController {
 
   @Autowired
-  private OsastoRepository osastoRepository;
+  private OsastoService osastoService;
 
   @GetMapping("/osastot")
   public String list(Model model) {
-    model.addAttribute("osastot", osastoRepository.findAll());
+    model.addAttribute("osastot", osastoService.list());
 
     return "osastot";
   }
 
   @PostMapping("/osastot")
   public String create(@RequestParam String nimi, @RequestParam Long osastoID) {
-    Osasto osasto = new Osasto();
-    osasto.setNimi(nimi);
-    osasto.setOsastoID(osastoID);
+    osastoService.create(nimi, osastoID);
 
-    osastoRepository.save(osasto);
     return "redirect:/osastot";
   }
 
   @GetMapping("/osasto/{id}")
   public String osasto(@PathVariable("id") Long id, Model model) {
-
-    Osasto osasto = osastoRepository.getReferenceById(id);
-    model.addAttribute("osasto", osasto);
+    model.addAttribute("osasto", osastoService.get(id));
 
     return "osasto";
   }
@@ -48,11 +45,8 @@ public class OsastoController {
       @RequestParam String nimi,
       @RequestParam Long osastoID)
       throws IOException {
-    Osasto osasto = osastoRepository.getReferenceById(id);
-    osasto.setNimi(nimi);
-    osasto.setOsastoID(osastoID);
+    osastoService.update(id, nimi, osastoID);
 
-    osastoRepository.save(osasto);
     return "redirect:/osasto/" + id;
   }
 
