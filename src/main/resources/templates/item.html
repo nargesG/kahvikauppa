@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
+    <link rel="stylesheet" th:href="@{/styles/item.css}" />
+    <script
+      src="https://kit.fontawesome.com/ea8f009169.js"
+      crossorigin="anonymous"></script>
+    <title th:text="${tuote.nimi}">Tuote Nimi</title>
+  </head>
+  <body>
+    <header th:replace="~{fragments/main-header :: header}">main header</header>
+
+    <main>
+      <div class="tuote-left">
+        <div class="tuote-image">
+          <img
+            th:src="${tuote.kuva} ? @{/images/{filename}(filename=${tuote.kuva})} : '/image/product-placeholder.jpg'"
+            id="preview"
+            alt="tuoten kuva"
+            width="3200px"
+            height="3200px" />
+        </div>
+      </div>
+      <div class="tuote-right">
+        <h2 class="tuote-nimi" th:text="${tuote.nimi}">Tuote Nimi</h2>
+        <p class="tuote-kuvaus" th:text="${tuote.kuvaus}">Tuote Kuvaus</p>
+        <h1 class="tuote-hinta" th:text="${tuote.hinta}">Tuote Hinta</h1>
+      </div>
+    </main>
+  </body>
+</html>

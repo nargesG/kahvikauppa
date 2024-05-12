@@ -22,21 +22,29 @@
     </h2>
 
     <section>
-      <div class="tuote-item" th:each="tuote : ${tuotteet}">
-        <div class="tuote-item-image">
-          <img
-            th:src="@{/images/{filename}(filename=${tuote.kuva})}"
-            id="preview"
-            alt="tuoten kuva"
-            width="120px"
-            height="120px" />
-        </div>
-        <p class="tuote-item-nimi" th:text="${tuote.nimi}">tuoten nimi</p>
-        <p class="tuote-item-kuvaus" th:text="${tuote.kuvaus}">tuoten kuvaus</p>
-        <p class="tuote-item-hinta" th:text="${tuote.hinta} + ' €'">
-          tuoten hinta
-        </p>
-      </div>
+      <ul>
+        <li th:each="tuote : ${tuotteet}">
+          <a th:href="@{/item/{id}(id=${tuote.id})}">
+            <div class="tuote-item">
+              <div class="tuote-item-image">
+                <img
+                  th:src="${tuote.kuva} ? @{/images/{filename}(filename=${tuote.kuva})} : '/image/product-placeholder.jpg'"
+                  id="preview"
+                  alt="tuoten kuva"
+                  width="120px"
+                  height="120px" />
+              </div>
+              <p class="tuote-item-nimi" th:text="${tuote.nimi}">tuoten nimi</p>
+              <p class="tuote-item-kuvaus" th:text="${tuote.kuvaus}">
+                tuoten kuvaus
+              </p>
+              <p class="tuote-item-hinta" th:text="${tuote.hinta} + ' €'">
+                tuoten hinta
+              </p>
+            </div>
+          </a>
+        </li>
+      </ul>
     </section>
   </body>
 </html>
