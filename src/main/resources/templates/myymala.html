@@ -35,7 +35,9 @@
                   height="120px" />
               </div>
               <p class="tuote-item-nimi" th:text="${tuote.nimi}">tuoten nimi</p>
-              <p class="tuote-item-kuvaus" th:text="${tuote.kuvaus}">
+              <p
+                class="tuote-item-kuvaus"
+                th:text="${tuote.kuvaus}"
                 tuoten kuvaus
               </p>
               <p class="tuote-item-hinta" th:text="${tuote.hinta} + ' €'">
@@ -45,6 +47,18 @@
           </a>
         </li>
       </ul>
+      <ol>
+        <li>
+          <a
+            th:each="page : ${#numbers.sequence(1, pageCount)}"
+            th:href="@{/myymala(page=${page})}"
+            class="page-number"
+            th:classappend="${page == currentPage} ? 'active' : ''"
+            th:text="${page}"
+            >Page</a
+          >
+        </li>
+      </ol>
     </section>
   </body>
 </html>

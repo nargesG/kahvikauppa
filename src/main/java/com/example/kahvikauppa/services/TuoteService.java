@@ -16,6 +16,9 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.Files;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -29,6 +32,19 @@ public class TuoteService {
 
   public List<Tuote> list() {
     return tuoteRepository.findAll();
+  }
+
+  public int count() {
+    return (int) tuoteRepository.count();
+  }
+
+  public int pageCount() {
+    return (int) count() / 18 + 1;
+  }
+
+  public Page<Tuote> getPage(int pageNumber) {
+    Pageable pageable = PageRequest.of(pageNumber - 1, 18);
+    return tuoteRepository.findAll(pageable);
   }
 
   public Tuote get(Long id) {
