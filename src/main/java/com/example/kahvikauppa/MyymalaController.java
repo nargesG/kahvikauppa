@@ -17,9 +17,6 @@ import com.example.kahvikauppa.services.TuoteService;
 public class MyymalaController {
 
   @Autowired
-  private TuoteRepository tuoteRepository;
-
-  @Autowired
   private TuoteService tuoteService;
 
   @Autowired
@@ -37,7 +34,10 @@ public class MyymalaController {
   }
 
   @GetMapping("/myymala/{osastoNimi}")
-  public String showOsastonTuoteet(@PathVariable("osastoNimi") String osastoNimi, Model model) {
+  public String showOsastonTuoteet(
+      @PathVariable("osastoNimi") String osastoNimi,
+      @RequestParam(required = true, defaultValue = "1") int page,
+      Model model) {
     Osasto osasto = osastoService.getByName(osastoNimi);
     List<Osasto> osastot1 = osastoService.getByParent(osasto);
 
@@ -48,9 +48,12 @@ public class MyymalaController {
     // Now we add the level 0 osasto to cover all them
     osastot2.add(osasto);
 
-    List<Tuote> tuotteet = tuoteRepository.findByOsastoIn(osastot2);
+    Page<Tuote> tuotteet = tuoteService.getPaginatedProductsByOsasto(osastot2, page, 18);
+
     model.addAttribute("tuotteet", tuotteet);
     model.addAttribute("osasto", osasto);
+    model.addAttribute("pageCount", tuotteet.getTotalPages());
+    model.addAttribute("currentPage", page);
 
     return "myymala";
   }

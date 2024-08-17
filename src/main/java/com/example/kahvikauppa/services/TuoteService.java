@@ -47,6 +47,11 @@ public class TuoteService {
     return tuoteRepository.findAll(pageable);
   }
 
+  public Page<Tuote> getPaginatedProductsByOsasto(List<Osasto> osastot, int pageNumber, int pageSize) {
+    Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+    return tuoteRepository.findByOsastoIn(osastot, pageable);
+  }
+
   public Tuote get(Long id) {
     return tuoteRepository.getReferenceById(id);
   }
