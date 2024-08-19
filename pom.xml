@@ -8,11 +8,11 @@
 		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>kahvikauppa</groupId>
 	<artifactId>kahvikauppa</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>kahvikauppa</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Kahvikauppa - Paras projektti</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -64,6 +64,13 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.azure.spring</groupId>
+			<artifactId>spring-cloud-azure-dependencies</artifactId>
+			<version>5.12.0</version>
+			<type>pom</type>
+			<scope>import</scope>
 		</dependency>
 	</dependencies>
 
