@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
@@ -15,38 +16,39 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
+    <div class="View">
+      <h3>Nykyiset Osastot</h3>
+      <table cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th scope="col">Osaston id</th>
+            <th scope="col">Osaston nimi</th>
+            <th scope="col">OsastonIDP</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="osasto : ${osastot}">
+            <td th:text="${osasto.id}">osaston id</td>
+            <td th:text="${osasto.nimi}">osaston nimi</td>
+            <td th:text="${osasto.osastoID}">osaston osastonID</td>
+            <td>
+              <a th:href="@{/osasto/{id}(id=${osasto.id})}">
+                <button>Muokka</button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <h2>Nykyiset Osastot</h2>
-    <table cellspacing="0" cellpadding="0">
-      <thead>
-        <tr>
-          <th scope="col">Osaston id</th>
-          <th scope="col">Osaston nimi</th>
-          <th scope="col">OsastonIDP</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="osasto : ${osastot}">
-          <td th:text="${osasto.id}">osaston id</td>
-          <td th:text="${osasto.nimi}">osaston nimi</td>
-          <td th:text="${osasto.osastoID}">osaston osastonID</td>
-          <td>
-            <a th:href="@{/osasto/{id}(id=${osasto.id})}">
-              <button>Muokka</button>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Lisää uusi osasto</h2>
-    <form th:action="@{/osastot}" method="POST">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" /><br />
-      <label for="osastoID">Osasto ID: </label>
-      <input type="text" name="osastoID" id="osastoID" /><br />
-      <input type="submit" value="Lisää" />
-    </form>
+      <h3>Lisää uusi osasto</h3>
+      <form th:action="@{/osastot}" method="POST">
+        <label for="nimi">Nimi: </label>
+        <input type="text" name="nimi" id="nimi" /><br />
+        <label for="osastoID">Osasto ID: </label>
+        <input type="text" name="osastoID" id="osastoID" /><br />
+        <input type="submit" value="Lisää" />
+      </form>
+    </div>
   </body>
 </html>

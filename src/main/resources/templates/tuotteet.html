@@ -3,83 +3,88 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
 
     <title>Tuotteet</title>
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
+    <div class="View">
+      <h3>Nykyiset Tuotteet</h3>
+      <table cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th scope="col">Tuoten nimi</th>
+            <th scope="col">Hinta</th>
+            <th scope="col">Osasto</th>
+            <th scope="col">Valmistaja</th>
+            <th scope="col">Toimittaja</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="tuote : ${tuotteet}">
+            <td th:text="${tuote.nimi}">tuoten nimi</td>
+            <td th:text="${tuote.hinta}">tuoten hinta</td>
+            <td th:text="${tuote.osasto.nimi}">tuoten osasto</td>
+            <td th:text="${tuote.valmistaja.nimi}">tuoten valmistaja</td>
+            <td th:text="${tuote.toimittaja.nimi}">tuoten toimittaja</td>
+            <td>
+              <a th:href="@{/tuote/{id}(id=${tuote.id})}">
+                <button>Muokka</button>
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/poista-tuote/{id}(id=${tuote.id})}">
+                <button class="poisa">Poista</button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <h2>Nykyiset Tuotteet</h2>
-    <table cellspacing="0" cellpadding="0">
-      <thead>
-        <tr>
-          <th scope="col">Tuoten nimi</th>
-          <th scope="col">Hinta</th>
-          <th scope="col">Osasto</th>
-          <th scope="col">Valmistaja</th>
-          <th scope="col">Toimittaja</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="tuote : ${tuotteet}">
-          <td th:text="${tuote.nimi}">tuoten nimi</td>
-          <td th:text="${tuote.hinta}">tuoten hinta</td>
-          <td th:text="${tuote.osasto.nimi}">tuoten osasto</td>
-          <td th:text="${tuote.valmistaja.nimi}">tuoten valmistaja</td>
-          <td th:text="${tuote.toimittaja.nimi}">tuoten toimittaja</td>
-          <td>
-            <a th:href="@{/tuote/{id}(id=${tuote.id})}">
-              <button>Muokka</button>
-            </a>
-          </td>
-          <td>
-            <a th:href="@{/poista-tuote/{id}(id=${tuote.id})}">
-              <button>Poista</button>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <h3>Lisää uusi tuote</h3>
+      <form
+        th:action="@{/tuotteet}"
+        method="POST"
+        enctype="multipart/form-data">
+        <label for="nimi">Nimi: </label>
+        <input type="text" name="nimi" id="nimi" />
+        <label for="kuvaus">Kuvaus: </label>
+        <input type="text" name="kuvaus" id="kuvaus" />
+        <label for="hinta">Hinta: </label>
+        <input type="text" name="hinta" id="hinta" />
+        <label for="tuotekuva">Tuotekuva: </label>
+        <input type="file" name="tuotekuva" id="tuotekuva" accept="image/*" />
 
-    <h2>Lisää uusi tuote</h2>
-    <form th:action="@{/tuotteet}" method="POST" enctype="multipart/form-data">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" />
-      <label for="kuvaus">Kuvaus: </label>
-      <input type="text" name="kuvaus" id="kuvaus" />
-      <label for="hinta">Hinta: </label>
-      <input type="text" name="hinta" id="hinta" />
-      <label for="tuotekuva">Tuotekuva: </label>
-      <input type="file" name="tuotekuva" id="tuotekuva" accept="image/*" />
+        <label for="id">Valmistaja: </label>
+        <select id="valmistajaID" name="valmistajaID">
+          <option
+            th:each="valmistaja : ${valmistajat}"
+            th:value="${valmistaja.id}"
+            th:text="${valmistaja.nimi}"></option>
+        </select>
 
-      <label for="id">Valmistaja: </label>
-      <select id="valmistajaID" name="valmistajaID">
-        <option
-          th:each="valmistaja : ${valmistajat}"
-          th:value="${valmistaja.id}"
-          th:text="${valmistaja.nimi}"></option>
-      </select>
+        <label for="id">Toimittaja: </label>
+        <select id="toimittajaID" name="toimittajaID">
+          <option
+            th:each="toimittaja : ${toimittajat}"
+            th:value="${toimittaja.id}"
+            th:text="${toimittaja.nimi}"></option>
+        </select>
 
-      <label for="id">Toimittaja: </label>
-      <select id="toimittajaID" name="toimittajaID">
-        <option
-          th:each="toimittaja : ${toimittajat}"
-          th:value="${toimittaja.id}"
-          th:text="${toimittaja.nimi}"></option>
-      </select>
+        <label for="id">Osaston nimi: </label>
+        <select id="osastoID" name="osastoID">
+          <option
+            th:each="osasto : ${osastot}"
+            th:value="${osasto.id}"
+            th:text="${osasto.nimi}"></option>
+        </select>
 
-      <label for="id">Osaston nimi: </label>
-      <select id="osastoID" name="osastoID">
-        <option
-          th:each="osasto : ${osastot}"
-          th:value="${osasto.id}"
-          th:text="${osasto.nimi}"></option>
-      </select>
-
-      <button type="submit">Lisää</button>
-    </form>
+        <button type="submit">Lisää</button>
+      </form>
+    </div>
   </body>
 </html>

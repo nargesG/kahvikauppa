@@ -3,48 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
 
     <title>Valmistajat</title>
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
+    <div class="View">
+      <h3>Nykyiset Valmistajat</h3>
+      <table cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th scope="col">Valmistajan nimi</th>
+            <th scope="col">URL</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="valmistaja : ${valmistajat}">
+            <td th:text="${valmistaja.nimi}">valmistajan nimi</td>
+            <td th:text="${valmistaja.url}">valmistajan url</td>
+            <td>
+              <a th:href="@{/valmistaja/{id}(id=${valmistaja.id})}">
+                <button>Muokka</button>
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/poista-valmistaja/{id}(id=${valmistaja.id})}">
+                <button class="poisa">Poista</button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <h2>Nykyiset Valmistajat</h2>
-    <table cellspacing="0" cellpadding="0">
-      <thead>
-        <tr>
-          <th scope="col">Valmistajan nimi</th>
-          <th scope="col">URL</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="valmistaja : ${valmistajat}">
-          <td th:text="${valmistaja.nimi}">valmistajan nimi</td>
-          <td th:text="${valmistaja.url}">valmistajan url</td>
-          <td>
-            <a th:href="@{/valmistaja/{id}(id=${valmistaja.id})}">
-              <button>Muokka</button>
-            </a>
-          </td>
-          <td>
-            <a th:href="@{/poista-valmistaja/{id}(id=${valmistaja.id})}">
-              <button>Poista</button>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Lisää uusi valmistaja</h2>
-    <form th:action="@{/valmistajat}" method="POST">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" /><br />
-      <label for="url">URL: </label>
-      <input type="text" name="url" id="url" /><br />
-      <input type="submit" value="Lisää" />
-    </form>
+      <h3>Lisää uusi valmistaja</h3>
+      <form th:action="@{/valmistajat}" method="POST">
+        <label for="nimi">Nimi: </label>
+        <input type="text" name="nimi" id="nimi" /><br />
+        <label for="url">URL: </label>
+        <input type="text" name="url" id="url" /><br />
+        <input type="submit" value="Lisää" />
+      </form>
+    </div>
   </body>
 </html>

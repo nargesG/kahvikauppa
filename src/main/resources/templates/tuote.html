@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
@@ -15,74 +16,79 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
-    <a href="/tuotteet">Takaisin tuotelistaan</a>
+    <div class="View">
+      <h3>TuotenMuokkaa</h3>
+      <form
+        th:action="@{/tuote/{id}(id=${tuote.id})}"
+        method="POST"
+        enctype="multipart/form-data">
+        <label for="tuotekuva">
+          <img
+            th:src="@{/images/{filename}(filename=${tuote.kuva})}"
+            id="preview"
+            alt="tuoten kuva"
+            width="100px"
+            height="100px" />
+        </label>
+        <input
+          id="tuotekuva"
+          type="file"
+          name="tuotekuva"
+          accept="image/*"
+          style="visibility: hidden"
+          onchange="PreviewImage();" />
+        <script type="text/javascript">
+          function PreviewImage() {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(
+              document.getElementById("tuotekuva").files[0]
+            );
 
-    <h1>TuotenMuokkaa</h1>
-    <form
-      th:action="@{/tuote/{id}(id=${tuote.id})}"
-      method="POST"
-      enctype="multipart/form-data">
-      <label for="tuotekuva">
-        <img
-          th:src="@{/images/{filename}(filename=${tuote.kuva})}"
-          id="preview"
-          alt="tuoten kuva"
-          width="100px"
-          height="100px" />
-      </label>
-      <input
-        id="tuotekuva"
-        type="file"
-        name="tuotekuva"
-        accept="image/*"
-        style="visibility: hidden"
-        onchange="PreviewImage();" />
-      <script type="text/javascript">
-        function PreviewImage() {
-          var oFReader = new FileReader();
-          oFReader.readAsDataURL(document.getElementById("tuotekuva").files[0]);
+            oFReader.onload = function (oFREvent) {
+              document.getElementById("preview").src = oFREvent.target.result;
+            };
+          }
+        </script>
 
-          oFReader.onload = function (oFREvent) {
-            document.getElementById("preview").src = oFREvent.target.result;
-          };
-        }
-      </script>
+        <label for="nimi">Nimi: </label>
+        <input type="text" name="nimi" id="nimi" th:value="${tuote.nimi}" />
+        <label for="kuvaus">Kuvaus: </label>
+        <textarea
+          id="kuvaus"
+          name="kuvaus"
+          th:text="${tuote.kuvaus}"></textarea>
+        <label for="hinta">Hinta: </label>
+        <input type="text" name="hinta" id="hinta" th:value="${tuote.hinta}" />
 
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" th:value="${tuote.nimi}" />
-      <label for="kuvaus">Kuvaus: </label>
-      <textarea id="kuvaus" name="kuvaus" th:text="${tuote.kuvaus}"></textarea>
-      <label for="hinta">Hinta: </label>
-      <input type="text" name="hinta" id="hinta" th:value="${tuote.hinta}" />
+        <label for="id">Valmistaja: </label>
+        <select id="valmistajaID" name="valmistajaID">
+          <option
+            th:each="valmistaja : ${valmistajat}"
+            th:value="${valmistaja.id}"
+            th:text="${valmistaja.nimi}"
+            th:selected="${valmistaja.id==tuote.valmistaja.id}"></option>
+        </select>
 
-      <label for="id">Valmistaja: </label>
-      <select id="valmistajaID" name="valmistajaID">
-        <option
-          th:each="valmistaja : ${valmistajat}"
-          th:value="${valmistaja.id}"
-          th:text="${valmistaja.nimi}"
-          th:selected="${valmistaja.id==tuote.valmistaja.id}"></option>
-      </select>
+        <label for="id">Toimittaja: </label>
+        <select id="toimittajaID" name="toimittajaID">
+          <option
+            th:each="toimittaja : ${toimittajat}"
+            th:value="${toimittaja.id}"
+            th:text="${toimittaja.nimi}"
+            th:selected="${toimittaja.id==tuote.toimittaja.id}"></option>
+        </select>
 
-      <label for="id">Toimittaja: </label>
-      <select id="toimittajaID" name="toimittajaID">
-        <option
-          th:each="toimittaja : ${toimittajat}"
-          th:value="${toimittaja.id}"
-          th:text="${toimittaja.nimi}"
-          th:selected="${toimittaja.id==tuote.toimittaja.id}"></option>
-      </select>
+        <label for="id">Osaston nimi: </label>
+        <select id="osastoID" name="osastoID">
+          <option
+            th:each="osasto : ${osastot}"
+            th:value="${osasto.id}"
+            th:text="${osasto.nimi}"
+            th:selected="${osasto.id==tuote.osasto.id}"></option>
+        </select>
 
-      <label for="id">Osaston nimi: </label>
-      <select id="osastoID" name="osastoID">
-        <option
-          th:each="osasto : ${osastot}"
-          th:value="${osasto.id}"
-          th:text="${osasto.nimi}"
-          th:selected="${osasto.id==tuote.osasto.id}"></option>
-      </select>
-
-      <button type="submit">Tallenna muutokset</button>
-    </form>
+        <button type="submit">Tallenna muutokset</button>
+      </form>
+    </div>
   </body>
 </html>

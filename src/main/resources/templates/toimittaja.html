@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
@@ -15,29 +16,33 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
-    <a href="/toimittajat">Takaisin toimittajanlistaan</a>
+    <div class="View">
+      <h3>ToimittajanMuokkaa</h3>
+      <form
+        th:action="@{/toimittaja/{id}(id=${toimittaja.id})}"
+        method="POST"
+        enctype="multipart/form-data">
+        <label for="nimi">Nimi: </label>
+        <input
+          type="text"
+          name="nimi"
+          id="nimi"
+          th:value="${toimittaja.nimi}" />
+        <label for="yhteyshenkilo">Yhteyshenkilo: </label>
+        <input
+          type="text"
+          name="yhteyshenkilo"
+          id="yhteyshenkilo"
+          th:value="${toimittaja.yhteyshenkilo}" />
+        <label for="yhteyshenkillonEmail">YhteyshenkillonEmail: </label>
+        <input
+          type="text"
+          name="yhteyshenkillonEmail"
+          id="yhteyshenkillonEmail"
+          th:value="${toimittaja.yhteyshenkillonEmail}" />
 
-    <h1>ToimittajanMuokkaa</h1>
-    <form
-      th:action="@{/toimittaja/{id}(id=${toimittaja.id})}"
-      method="POST"
-      enctype="multipart/form-data">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" th:value="${toimittaja.nimi}" />
-      <label for="yhteyshenkilo">Yhteyshenkilo: </label>
-      <input
-        type="text"
-        name="yhteyshenkilo"
-        id="yhteyshenkilo"
-        th:value="${toimittaja.yhteyshenkilo}" />
-      <label for="yhteyshenkillonEmail">YhteyshenkillonEmail: </label>
-      <input
-        type="text"
-        name="yhteyshenkillonEmail"
-        id="yhteyshenkillonEmail"
-        th:value="${toimittaja.yhteyshenkillonEmail}" />
-
-      <button type="submit">Tallenna muutokset</button>
-    </form>
+        <button type="submit">Tallenna muutokset</button>
+      </form>
+    </div>
   </body>
 </html>

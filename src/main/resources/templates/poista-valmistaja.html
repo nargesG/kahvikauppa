@@ -9,17 +9,17 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
-    <a href="/valmistajat">Takaisin valmistajalistaan</a>
-
-    <h1>Poista Valmistaja</h1>
-    <form
-      th:action="@{/poista-valmistaja/{id}(id=${valmistaja.id})}"
-      method="POST"
-      enctype="multipart/form-data">
-      <span th:text="${valmistaja.nimi}">valmistaja nimi</span> poistettaisiin.
-      Oletko varma?
-      <a href="/valmistajat"><button>Peru</button></a>
-      <button type="submit">Poista</button>
-    </form>
+    <div class="View">
+      <h3>Poista Valmistaja</h3>
+      <form
+        th:action="@{/poista-valmistaja/{id}(id=${valmistaja.id})}"
+        method="POST"
+        enctype="multipart/form-data">
+        <span th:text="${valmistaja.nimi}">valmistaja nimi</span>
+        poistettaisiin. Oletko varma?
+        <a href="/valmistajat"><button type="button">Peru</button></a>
+        <button type="submit" class="poisa">Poista</button>
+      </form>
+    </div>
   </body>
 </html>

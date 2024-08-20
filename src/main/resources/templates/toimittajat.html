@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
@@ -14,54 +15,55 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
+    <div class="View">
+      <h3>Nykyiset Toimittajat</h3>
+      <table cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th scope="col">Toimittajan nimi</th>
+            <th scope="col">Yhteyshenkilo</th>
+            <th scope="col">Yhteyshenkillon email</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="toimittaja : ${toimittajat}">
+            <td th:text="${toimittaja.nimi}">toimittajan nimi</td>
+            <td th:text="${toimittaja.yhteyshenkilo}">
+              toimittajan yhteyshenkilo
+            </td>
+            <td th:text="${toimittaja.yhteyshenkillonEmail}">
+              toimittajan yhteyshenkillon email
+            </td>
 
-    <h2>Nykyiset Toimittajat</h2>
-    <table cellspacing="0" cellpadding="0">
-      <thead>
-        <tr>
-          <th scope="col">Toimittajan nimi</th>
-          <th scope="col">Yhteyshenkilo</th>
-          <th scope="col">Yhteyshenkillon email</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="toimittaja : ${toimittajat}">
-          <td th:text="${toimittaja.nimi}">toimittajan nimi</td>
-          <td th:text="${toimittaja.yhteyshenkilo}">
-            toimittajan yhteyshenkilo
-          </td>
-          <td th:text="${toimittaja.yhteyshenkillonEmail}">
-            toimittajan yhteyshenkillon email
-          </td>
+            <td>
+              <a th:href="@{/toimittaja/{id}(id=${toimittaja.id})}">
+                <button>Muokka</button>
+              </a>
+            </td>
+            <td>
+              <a th:href="@{/poista-toimittaja/{id}(id=${toimittaja.id})}">
+                <button class="poisa">Poista</button>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-          <td>
-            <a th:href="@{/toimittaja/{id}(id=${toimittaja.id})}">
-              <button>Muokka</button>
-            </a>
-          </td>
-          <td>
-            <a th:href="@{/poista-toimittaja/{id}(id=${toimittaja.id})}">
-              <button>Poista</button>
-            </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2>Lisää uusi toimittaja</h2>
-    <form th:action="@{/toimittajat}" method="POST">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" /><br />
-      <label for="yhteyshenkilo">Yhteyshenkilo: </label>
-      <input type="text" name="yhteyshenkilo" id="yhteyshenkilo" /><br />
-      <label for="yhteyshenkillonEmail">Yhteyshenkillon Email: </label>
-      <input
-        type="text"
-        name="yhteyshenkillonEmail"
-        id="yhteyshenkillonEmail" /><br />
-      <input type="submit" value="Lisää" />
-    </form>
+      <h3>Lisää uusi toimittaja</h3>
+      <form th:action="@{/toimittajat}" method="POST">
+        <label for="nimi">Nimi: </label>
+        <input type="text" name="nimi" id="nimi" /><br />
+        <label for="yhteyshenkilo">Yhteyshenkilo: </label>
+        <input type="text" name="yhteyshenkilo" id="yhteyshenkilo" /><br />
+        <label for="yhteyshenkillonEmail">Yhteyshenkillon Email: </label>
+        <input
+          type="text"
+          name="yhteyshenkillonEmail"
+          id="yhteyshenkillonEmail" /><br />
+        <input type="submit" value="Lisää" />
+      </form>
+    </div>
   </body>
 </html>

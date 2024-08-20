@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
@@ -15,23 +16,23 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
-    <a href="/osastot">Takaisin osastonlistaan</a>
+    <div class="View">
+      <h3>OsastonMuokkaa</h3>
+      <form
+        th:action="@{/osasto/{id}(id=${osasto.id})}"
+        method="POST"
+        enctype="multipart/form-data">
+        <label for="nimi">Nimi: </label>
+        <input type="text" name="nimi" id="nimi" th:value="${osasto.nimi}" />
+        <label for="osastoID">OsastoID: </label>
+        <input
+          type="text"
+          name="osastoID"
+          id="osastoID"
+          th:value="${osasto.osastoID}" />
 
-    <h1>OsastonMuokkaa</h1>
-    <form
-      th:action="@{/osasto/{id}(id=${osasto.id})}"
-      method="POST"
-      enctype="multipart/form-data">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" th:value="${osasto.nimi}" />
-      <label for="osastoID">OsastoID: </label>
-      <input
-        type="text"
-        name="osastoID"
-        id="osastoID"
-        th:value="${osasto.osastoID}" />
-
-      <button type="submit">Tallenna muutokset</button>
-    </form>
+        <button type="submit">Tallenna muutokset</button>
+      </form>
+    </div>
   </body>
 </html>

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" th:href="@{/styles/reset.css}" />
+    <link rel="stylesheet" th:href="@{/styles/main.css}" />
     <link rel="stylesheet" th:href="@{/styles/admin.css}" />
     <style>
       span {
@@ -15,19 +16,23 @@
   </head>
   <body>
     <div th:replace="fragments/admin-header :: header">admin header</div>
-    <a href="/valmistajat">Takaisin valmistajanlistaan</a>
+    <div class="View">
+      <h3>ValmistajanMuokkaa</h3>
+      <form
+        th:action="@{/valmistaja/{id}(id=${valmistaja.id})}"
+        method="POST"
+        enctype="multipart/form-data">
+        <label for="nimi">Nimi: </label>
+        <input
+          type="text"
+          name="nimi"
+          id="nimi"
+          th:value="${valmistaja.nimi}" />
+        <label for="url">URL: </label>
+        <input type="text" name="url" id="url" th:value="${valmistaja.url}" />
 
-    <h1>ValmistajanMuokkaa</h1>
-    <form
-      th:action="@{/valmistaja/{id}(id=${valmistaja.id})}"
-      method="POST"
-      enctype="multipart/form-data">
-      <label for="nimi">Nimi: </label>
-      <input type="text" name="nimi" id="nimi" th:value="${valmistaja.nimi}" />
-      <label for="url">URL: </label>
-      <input type="text" name="url" id="url" th:value="${valmistaja.url}" />
-
-      <button type="submit">Tallenna muutokset</button>
-    </form>
+        <button type="submit">Tallenna muutokset</button>
+      </form>
+    </div>
   </body>
 </html>

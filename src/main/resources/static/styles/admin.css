@@ -1,15 +1,21 @@
 .admin-header {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around;
-  background-color: #ccc;
+  justify-content: space-between;
+  background-color: #daae75;
+  padding: 0 2rem;
 }
 
 .admin-header li {
-  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 3rem;
+  border-bottom: 2px solid transparent;
+}
+.admin-header li:hover {
+  color: rgb(39, 120, 58);
+  border-bottom: 2px solid rgb(39, 120, 58);
 }
 
 table {
@@ -68,7 +74,7 @@ button {
   padding: 0.1rem 0.5rem;
   text-align: center;
   margin-top: 0.5rem;
-  background-color: #dfe8f6;
+  background-color: #daae75;
   border-radius: 5px;
   border: 1px #222 solid;
 }
@@ -82,4 +88,16 @@ button {
 
 td button {
   margin: 0;
+}
+.poisa {
+  background-color: rgb(226, 132, 132);
+}
+
+.View {
+  padding: 1rem 2rem;
+}
+h3 {
+  background: #eee;
+  line-height: 3rem;
+  padding: 0 1rem;
 }
