@@ -1,0 +1,15 @@
+.login-banner {
+  background: url(/image/hero1.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  padding: 70px;
+}
+
+.login {
+  background: white;
+  padding: 3rem;
+  width: 40%;
+  border-radius: 10px;
+  box-shadow: 0 0 50px gray;
+}

@@ -49,7 +49,7 @@
         <li>
           <a
             th:each="page : ${#numbers.sequence(1, pageCount)}"
-            th:href="@{/myymala(page=${page})}"
+            th:href="(${osasto} ? @{/myymala/{osasto}(osasto=${osasto.nimi})} : @{/myymala}) + '?page=' + (${page})"
             class="page-number"
             th:classappend="${page == currentPage} ? 'active' : ''"
             th:text="${page}"
